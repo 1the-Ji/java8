@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
@@ -56,9 +57,12 @@ public class App {
                 skip(10).
                 limit(10).forEach(System.out::println);
     System.out.println("\n자바 수업 중에 Test가 들어있는 수업이 있는지 확인");
-    // TODO
-
+    boolean isTest = javaClasses.stream().anyMatch(s->s.getTitle().contains("Test"));
+        System.out.println(isTest);
     System.out.println("\n스프링 수업 중에 제목에 spring이 들어간 것만 제목만 모아서 List로 만들기");
-    // TODO
+        List<String> springs = springClasses.stream().filter(s -> s.getTitle().contains("spring"))
+                .map(s -> s.getTitle())
+                .collect(Collectors.toList());
+        springs.forEach(System.out::println);
     }
 }
